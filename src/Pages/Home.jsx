@@ -1,8 +1,9 @@
 import { getTrending } from 'Api/Api';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Home = () => {
+  const location = useLocation();
   const [trendMovies, setTrendMovies] = useState([]);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const Home = () => {
         {trendMovies.map(trendMovie => {
           return (
             <li key={trendMovie.id}>
-              <Link to={`movies/${trendMovie.id}`}>
+              <Link to={`movies/${trendMovie.id}`} state={{ from: location }}>
                 {trendMovie.title ?? trendMovie.name}
               </Link>
             </li>
