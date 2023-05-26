@@ -1,11 +1,12 @@
 import { getMovieSearch } from 'Api/Api';
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 const Movies = () => {
+  const [searchInput, setSearchInput] = useState('');
+  const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams(); // читать/перезаписывать строку запроса
   const query = searchParams.get('query') ?? ''; // записывает значение query или пустую строку
-  const [search, setSearch] = useState('');
 
   useEffect(() => {
     // HTTP запрос
@@ -13,6 +14,7 @@ const Movies = () => {
     (async () => {
       try {
         const movieSearch = await getMovieSearch(query);
+        setMovies(movieSearch);
 
         console.log('Search :>> ', movieSearch);
       } catch (error) {
@@ -24,29 +26,27 @@ const Movies = () => {
   const handleSubmit = evt => {
     evt.preventDefault();
 
-    if (search === '') {
+    if (searchInput === '') {
       return setSearchParams({}); // очищаем строку запроса от search
     }
 
-    setSearchParams({ query: search });
-
-    console.log('query :>> ', query);
-    console.log('search :>> ', search);
+    setSearchParams({ query: searchInput });
+    setSearchInput('');
   };
 
   const updateQueryString = evt => {
-    setSearch(evt.target.value); // записываем в State данные input
+    setSearchInput(evt.target.value); // записываем в State данные input
   };
 
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <button type="submit">Search</button>
+        <button type="submit">Submit</button>
 
         <input
           type="text"
           name="search"
-          value={search} // получаем из State
+          value={searchInput} // получаем из State
           onChange={updateQueryString}
           autoComplete="off"
           autoFocus
@@ -54,17 +54,15 @@ const Movies = () => {
         />
       </form>
 
-      {/* <ul>
-        {trendMovies.map(trendMovie => {
+      <ul>
+        {movies.map(movie => {
           return (
-            <li key={trendMovie.id}>
-              <Link to={`movies/${trendMovie.id}`}>
-                {trendMovie.title ?? trendMovie.name}
-              </Link>
+            <li key={movie.id}>
+              <Link to={`${movie.id}`}>{movie.title}</Link>
             </li>
           );
         })}
-      </ul> */}
+      </ul>
     </>
   );
 };
