@@ -1,8 +1,27 @@
+import { getMovieCredits, getMovieDetails, getMovieReviews } from 'Api/Api';
+// import axios from 'axios';
+import { useEffect } from 'react';
 import { Link, Outlet, useParams } from 'react-router-dom';
 
 const MovieDetails = () => {
-  const params = useParams();
-  // console.log('params :>> ', params); // забираем id из строки запроса
+  const { movieId } = useParams(); // забираем id из строки запроса
+
+  // console.log('useParams :>> ', movieId);
+  useEffect(() => {
+    (async () => {
+      try {
+        const movieDetails = await getMovieDetails(movieId);
+        const movieCredits = await getMovieCredits(movieId);
+        const movieReviews = await getMovieReviews(movieId);
+
+        console.log('Details :>> ', movieDetails);
+        console.log('Credits :>> ', movieCredits);
+        console.log('Reviews :>> ', movieReviews);
+      } catch (error) {
+        console.warn(error);
+      }
+    })();
+  }, [movieId]);
 
   return (
     <>
@@ -10,7 +29,7 @@ const MovieDetails = () => {
 
       <Link to="/">Go Back</Link>
 
-      <p>Здесь разметка данных про фильм с ID: {params.movieId}</p>
+      <p>Здесь разметка данных про фильм с ID: {movieId}</p>
 
       <h3>Additional information</h3>
 
