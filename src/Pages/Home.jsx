@@ -11,7 +11,7 @@ const Home = () => {
         const data = await getTrending();
         setTrendMovies(data);
 
-        console.log('getTrending :>> ', data);
+        // console.log('getTrending :>> ', data);
       } catch (error) {
         console.warn(error);
       }

@@ -1,9 +1,11 @@
 import { getMovieCredits, getMovieDetails, getMovieReviews } from 'Api/Api';
 // import axios from 'axios';
-import { useEffect } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 
 const MovieDetails = () => {
+  const location = useLocation();
+  const backLinkLocation = useRef(location.state?.from ?? `/movies`);
   const { movieId } = useParams(); // забираем id из строки запроса
 
   // console.log('useParams :>> ', movieId);
@@ -27,7 +29,8 @@ const MovieDetails = () => {
     <>
       <h2>MovieDetails pages</h2>
 
-      <Link to="/">Go Back</Link>
+      <Link to={backLinkLocation.current}>Go Back</Link>
+      {/* <Link to={location.state?.from ?? `/movies`}>Go Back</Link> */}
 
       <p>Здесь разметка данных про фильм с ID: {movieId}</p>
 
