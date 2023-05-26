@@ -6,6 +6,8 @@ import MovieDetails from 'Pages/MovieDetails';
 import Cast from './Cast/Cast';
 import Reviews from './Reviews/Reviews';
 
+// import getTrending from 'Api/Api';
+
 export const App = () => {
   return (
     <div>
