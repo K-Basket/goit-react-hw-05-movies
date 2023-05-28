@@ -1,18 +1,40 @@
+import { getMovieReviews } from 'Api/Api';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
 const Reviews = () => {
+  // const dataMovieReviews = await getMovieReviews(movieId);
+  const { movieId } = useParams();
+  const [movieReviews, setMovieReviews] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const dataMovieReviews = await getMovieReviews(movieId);
+        setMovieReviews(dataMovieReviews);
+
+        console.log(dataMovieReviews); // ---temp
+      } catch (error) {
+        console.warn(error);
+      }
+    })();
+  }, [movieId]);
+
   return (
     <>
       <h4>Reviews</h4>
-
-      <p>We don't have any reviews for this movie.</p>
-
-      <h5>Author: SWITCH</h5>
-      <p>
-        Reviews optio quasi, amet natus reiciendis atque fuga dolore? Lorem,
-        ipsum dolor sit amet consectetur adipisicing elit. Impedit suscipit
-        quisquam incidunt commodi fugiat aliquam praesentium ipsum quos unde
-        voluptatum
-      </p>
-      <h5>Author: msbreviews</h5>
+      {movieReviews && (
+        <ul>
+          {movieReviews.results.map(el => {
+            return (
+              <li key={el.id}>
+                <h5>Author: {el.author}</h5>
+                <p>{el.content}</p>
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </>
   );
 };
