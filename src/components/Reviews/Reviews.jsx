@@ -5,13 +5,18 @@ import { useParams } from 'react-router-dom';
 const Reviews = () => {
   const { movieId } = useParams();
   const [movieReviews, setMovieReviews] = useState([]);
+  const [isHidden, setIsHidden] = useState(false);
 
   useEffect(() => {
     (async () => {
       try {
         const dataMovieReviews = await getMovieReviews(movieId);
+        console.log('dataMovieReviews :>> ', dataMovieReviews); // ---temp
 
-        console.log('dataMovieReviews :>> ', dataMovieReviews); // --temp
+        if (dataMovieReviews.length === 0) {
+          return setIsHidden(true);
+        }
+
         setMovieReviews(dataMovieReviews);
       } catch (error) {
         console.warn(error);
@@ -22,7 +27,10 @@ const Reviews = () => {
   return (
     <>
       <h4>Reviews</h4>
-      {
+
+      {isHidden ? (
+        <p>We don't have any rewiews for this movie.</p>
+      ) : (
         <ul>
           {movieReviews.map(({ id, author, content }) => {
             return (
@@ -33,7 +41,7 @@ const Reviews = () => {
             );
           })}
         </ul>
-      }
+      )}
     </>
   );
 };

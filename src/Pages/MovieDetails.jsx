@@ -1,5 +1,5 @@
 import { getMovieDetails } from 'Api/Api';
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 
 const MovieDetails = () => {
@@ -14,7 +14,7 @@ const MovieDetails = () => {
       try {
         const dataMovieDetails = await getMovieDetails(movieId);
 
-        console.log('dataMovieDetails :>> ', dataMovieDetails); // --temp
+        // console.log('dataMovieDetails :>> ', dataMovieDetails); // ---temp
         setMovieDetails(dataMovieDetails);
       } catch (error) {
         console.warn(error);
@@ -51,7 +51,9 @@ const MovieDetails = () => {
             <Link to="reviews">Reviews</Link>
           </li>
         </ul>
-        <Outlet />
+        <Suspense fallback={<div>loading...</div>}>
+          <Outlet />
+        </Suspense>
       </>
     )
   );

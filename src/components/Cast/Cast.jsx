@@ -11,7 +11,7 @@ const Cast = () => {
       try {
         const dataMovieCredits = await getMovieCredits(movieId);
 
-        console.log('dataMovieCredits :>> ', dataMovieCredits); // ---temp
+        // console.log('dataMovieCredits :>> ', dataMovieCredits); // ---temp
         setMovieCredits(dataMovieCredits);
       } catch (error) {
         console.warn(error);
