@@ -3,17 +3,16 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 const Reviews = () => {
-  // const dataMovieReviews = await getMovieReviews(movieId);
   const { movieId } = useParams();
-  const [movieReviews, setMovieReviews] = useState(null);
+  const [movieReviews, setMovieReviews] = useState([]);
 
   useEffect(() => {
     (async () => {
       try {
         const dataMovieReviews = await getMovieReviews(movieId);
-        setMovieReviews(dataMovieReviews);
 
-        console.log(dataMovieReviews); // ---temp
+        console.log('dataMovieReviews :>> ', dataMovieReviews); // --temp
+        setMovieReviews(dataMovieReviews);
       } catch (error) {
         console.warn(error);
       }
@@ -23,18 +22,18 @@ const Reviews = () => {
   return (
     <>
       <h4>Reviews</h4>
-      {movieReviews && (
+      {
         <ul>
-          {movieReviews.results.map(el => {
+          {movieReviews.map(({ id, author, content }) => {
             return (
-              <li key={el.id}>
-                <h5>Author: {el.author}</h5>
-                <p>{el.content}</p>
+              <li key={id}>
+                <h5>Author: {author}</h5>
+                <p>{content}</p>
               </li>
             );
           })}
         </ul>
-      )}
+      }
     </>
   );
 };

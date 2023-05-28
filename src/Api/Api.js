@@ -48,7 +48,7 @@ export const getMovieCredits = async movieId => {
   };
 
   const { data } = await axios.request(options);
-  return data;
+  return data.cast;
 };
 
 // запрос обзоров для страницы кинофильма
@@ -65,7 +65,7 @@ export const getMovieReviews = async movieId => {
   };
 
   const { data } = await axios.request(options);
-  return data;
+  return data.results;
 };
 
 // поиск кинофильма по ключевому слову на странице фильмов

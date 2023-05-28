@@ -9,10 +9,10 @@ const Home = () => {
   useEffect(() => {
     (async () => {
       try {
-        const data = await getTrending();
-        setTrendMovies(data);
+        const dataTrendMovies = await getTrending();
 
-        // console.log('getTrending :>> ', data);
+        console.log('dataTrendMovies :>> ', dataTrendMovies);
+        setTrendMovies(dataTrendMovies);
       } catch (error) {
         console.warn(error);
       }

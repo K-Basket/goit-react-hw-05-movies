@@ -14,6 +14,7 @@ const MovieDetails = () => {
       try {
         const dataMovieDetails = await getMovieDetails(movieId);
 
+        console.log('dataMovieDetails :>> ', dataMovieDetails); // --temp
         setMovieDetails(dataMovieDetails);
       } catch (error) {
         console.warn(error);
