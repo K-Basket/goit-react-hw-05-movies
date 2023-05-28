@@ -1,6 +1,7 @@
 import { getMovieDetails } from 'Api/Api';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { LinkStyled, ListStyled } from './MovieDetailsStyled';
 
 const MovieDetails = () => {
   const location = useLocation();
@@ -43,14 +44,15 @@ const MovieDetails = () => {
           })}
         </ul>
         <h3>Additional information</h3>
-        <ul>
+
+        <ListStyled>
           <li>
-            <Link to="cast">Cast</Link>
+            <LinkStyled to="cast">Cast</LinkStyled>
           </li>
           <li>
-            <Link to="reviews">Reviews</Link>
+            <LinkStyled to="reviews">Reviews</LinkStyled>
           </li>
-        </ul>
+        </ListStyled>
         <Suspense fallback={<div>loading...</div>}>
           <Outlet />
         </Suspense>

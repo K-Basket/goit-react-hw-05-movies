@@ -1,6 +1,7 @@
 import { getTrending } from 'Api/Api';
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { LinkStyled, ListStyled } from './HomeStyled';
 
 const Home = () => {
   const location = useLocation();
@@ -23,17 +24,21 @@ const Home = () => {
     <>
       {/* <p>Home page</p> */}
       <h2>Trending today</h2>
-      <ul>
+
+      <ListStyled>
         {trendMovies.map(trendMovie => {
           return (
             <li key={trendMovie.id}>
-              <Link to={`movies/${trendMovie.id}`} state={{ from: location }}>
+              <LinkStyled
+                to={`movies/${trendMovie.id}`}
+                state={{ from: location }}
+              >
                 {trendMovie.title ?? trendMovie.name}
-              </Link>
+              </LinkStyled>
             </li>
           );
         })}
-      </ul>
+      </ListStyled>
     </>
   );
 };
