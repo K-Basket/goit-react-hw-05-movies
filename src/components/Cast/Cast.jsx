@@ -1,6 +1,8 @@
 import { getMovieCredits } from 'Api/Api';
+import { Container } from 'Pages/MovieDetails/MovieDetailsStyled';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { CastCardStyled, CastsStyled } from './CastStyled';
 
 const Cast = () => {
   const { movieId } = useParams(); // забираем id из строки запроса
@@ -20,27 +22,33 @@ const Cast = () => {
   }, [movieId]);
 
   return (
-    <>
+    <Container>
       <h4>Cast</h4>
       {
-        <ul>
+        <CastsStyled>
           {movieCredits.map(({ id, profile_path, name, character }) => {
             return (
-              <li key={id}>
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${profile_path}`}
-                  alt={name}
-                  width={100}
-                />
-
-                <p>{name}</p>
-                <p>Character: {character}</p>
-              </li>
+              <CastCardStyled key={id}>
+                <article>
+                  <div>
+                    {profile_path && (
+                      <img
+                        src={`https://image.tmdb.org/t/p/w500${profile_path}`}
+                        alt=""
+                      />
+                    )}
+                  </div>
+                  <div>
+                    <h5>{name}</h5>
+                    <p>Character: {character}</p>
+                  </div>
+                </article>
+              </CastCardStyled>
             );
           })}
-        </ul>
+        </CastsStyled>
       }
-    </>
+    </Container>
   );
 };
 

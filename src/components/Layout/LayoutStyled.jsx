@@ -2,6 +2,9 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Header = styled.header`
+  position: sticky;
+  top: 0;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,6 +12,7 @@ export const Header = styled.header`
   padding: 10px 0;
   margin-bottom: 16px;
   border-bottom: 1px solid gray;
+  background-color: #fff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
 
   & nav {
