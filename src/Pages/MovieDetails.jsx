@@ -1,6 +1,6 @@
-import { getMovieCredits, getMovieDetails, getMovieReviews } from 'Api/Api';
+import { getMovieDetails } from 'Api/Api';
 // import axios from 'axios';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 
 const MovieDetails = () => {
@@ -8,17 +8,21 @@ const MovieDetails = () => {
   const backLinkLocation = useRef(location.state?.from ?? `/movies`);
   const { movieId } = useParams(); // забираем id из строки запроса
 
-  // console.log('useParams :>> ', movieId);
+  const [movieDetails, setMovieDetails] = useState(null);
+
   useEffect(() => {
     (async () => {
       try {
-        const movieDetails = await getMovieDetails(movieId);
-        const movieCredits = await getMovieCredits(movieId);
-        const movieReviews = await getMovieReviews(movieId);
+        const dataMovieDetails = await getMovieDetails(movieId);
+        // const dataMovieCredits = await getMovieCredits(movieId);
+        // const dataMovieReviews = await getMovieReviews(movieId);
 
-        console.log('Details :>> ', movieDetails);
-        console.log('Credits :>> ', movieCredits);
-        console.log('Reviews :>> ', movieReviews);
+        setMovieDetails(dataMovieDetails);
+        // setMovieDetails(dataMovieDetails);
+
+        // console.log('Details :>> ', dataMovieDetails);
+        // console.log('Credits :>> ', dataMovieCredits);
+        // console.log('Reviews :>> ', dataMovieReviews);
       } catch (error) {
         console.warn(error);
       }
@@ -26,26 +30,44 @@ const MovieDetails = () => {
   }, [movieId]);
 
   return (
-    <>
-      <h2>MovieDetails pages</h2>
+    movieDetails && (
+      <>
+        {/* {console.log('det', movieDetails)} */}
 
-      <Link to={backLinkLocation.current}>Go Back</Link>
-      {/* <Link to={location.state?.from ?? `/movies`}>Go Back</Link> */}
+        <Link to={backLinkLocation.current}>Go Back</Link>
+        {/* <p>{movieDetails}</p> */}
 
-      <p>Здесь разметка данных про фильм с ID: {movieId}</p>
+        <img
+          src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`}
+          alt={movieDetails.title}
+          width={200}
+        />
 
-      <h3>Additional information</h3>
+        <h2>Title: {movieDetails.title}</h2>
+        <p>User score: {Math.round(movieDetails.vote_average)}%</p>
+        <h3>Overview</h3>
+        <p>{movieDetails.overview}</p>
+        <h3>Genres</h3>
 
-      <ul>
-        <li>
-          <Link to="cast">Cast</Link>
-        </li>
-        <li>
-          <Link to="reviews">Reviews</Link>
-        </li>
-      </ul>
-      <Outlet />
-    </>
+        <ul>
+          {movieDetails.genres.map(el => {
+            return <li key={el.id}>{el.name}</li>;
+          })}
+        </ul>
+
+        <h3>Additional information</h3>
+
+        <ul>
+          <li>
+            <Link to="cast">Cast</Link>
+          </li>
+          <li>
+            <Link to="reviews">Reviews</Link>
+          </li>
+        </ul>
+        <Outlet />
+      </>
+    )
   );
 };
 

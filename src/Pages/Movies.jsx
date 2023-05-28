@@ -36,7 +36,8 @@ const Movies = () => {
   };
 
   const updateQueryString = evt => {
-    setSearchInput(evt.target.value.trim()); // записываем в State данные input
+    // setSearchInput(evt.target.value.trim()); // записываем в State данные input
+    setSearchInput(evt.target.value); // записываем в State данные input
   };
 
   return (
