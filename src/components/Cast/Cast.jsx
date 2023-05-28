@@ -28,22 +28,24 @@ const Cast = () => {
         <CastsStyled>
           {movieCredits.map(({ id, profile_path, name, character }) => {
             return (
-              <CastCardStyled key={id}>
-                <article>
-                  <div>
-                    {profile_path && (
-                      <img
-                        src={`https://image.tmdb.org/t/p/w500${profile_path}`}
-                        alt=""
-                      />
-                    )}
-                  </div>
-                  <div>
-                    <h5>{name}</h5>
-                    <p>Character: {character}</p>
-                  </div>
-                </article>
-              </CastCardStyled>
+              profile_path && (
+                <CastCardStyled key={id}>
+                  <article>
+                    <div>
+                      {
+                        <img
+                          src={`https://image.tmdb.org/t/p/w500${profile_path}`}
+                          alt=""
+                        />
+                      }
+                    </div>
+                    <div>
+                      <h5>{name}</h5>
+                      <p>Character: {character}</p>
+                    </div>
+                  </article>
+                </CastCardStyled>
+              )
             );
           })}
         </CastsStyled>
