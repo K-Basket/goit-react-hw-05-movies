@@ -2,6 +2,7 @@ import { getTrending } from 'Api/Api';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { LinkStyled, ListStyled } from './HomeStyled';
+import { Container } from 'Pages/MovieDetails/MovieDetailsStyled';
 
 const Home = () => {
   const location = useLocation();
@@ -21,7 +22,7 @@ const Home = () => {
   }, []);
 
   return (
-    <>
+    <Container>
       {/* <p>Home page</p> */}
       <h2>Trending today</h2>
 
@@ -39,7 +40,7 @@ const Home = () => {
           );
         })}
       </ListStyled>
-    </>
+    </Container>
   );
 };
 

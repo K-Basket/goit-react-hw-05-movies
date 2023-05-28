@@ -1,4 +1,5 @@
 import { getMovieReviews } from 'Api/Api';
+import { Container } from 'Pages/MovieDetails/MovieDetailsStyled';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -25,7 +26,7 @@ const Reviews = () => {
   }, [movieId]);
 
   return (
-    <>
+    <Container>
       <h4>Reviews</h4>
 
       {isHidden ? (
@@ -42,7 +43,7 @@ const Reviews = () => {
           })}
         </ul>
       )}
-    </>
+    </Container>
   );
 };
 

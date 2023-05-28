@@ -2,6 +2,7 @@ import { getMovieSearch } from 'Api/Api';
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import Notiflix from 'notiflix';
+import { Container } from './MovieDetails/MovieDetailsStyled';
 
 const Movies = () => {
   const location = useLocation();
@@ -41,7 +42,7 @@ const Movies = () => {
   };
 
   return (
-    <>
+    <Container>
       <form onSubmit={handleSubmit}>
         <button type="submit">Submit</button>
 
@@ -67,7 +68,7 @@ const Movies = () => {
           );
         })}
       </ul>
-    </>
+    </Container>
   );
 };
 
